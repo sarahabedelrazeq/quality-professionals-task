@@ -25,7 +25,7 @@ export default function CreateWorkspace() {
             }}
             className="fixed md:rounded-xl w-full h-full md:w-fit md:h-fit max-h-full overflow-y-auto bg-gray-100 shadow-2xl p-6 pt-8 text-black"
           >
-            <div className="mb-8 flex items-center justify-between">
+            <div className="mb-6 flex items-center justify-between">
               <div>
                 <p className="block text-gray-700 font-bold text-2xl">
                   Create New Workspace
@@ -36,14 +36,14 @@ export default function CreateWorkspace() {
               </div>
             </div>
 
-            <div className="mb-5 rounded-xl bg-white p-4 pt-6">
-              <div className="mb-4">
+            <div className="mb-4 rounded-xl bg-white p-4 pt-6">
+              <div className="mb-3">
                 <p className="block text-gray-700 text-sm font-bold">
                   Workspace details
                 </p>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-3">
                 <label className="block text-gray-700 text-sm font-bold">
                   <div className="mb-2">Name</div>
                   <div>
@@ -57,7 +57,7 @@ export default function CreateWorkspace() {
                 </label>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-3">
                 <label className="block text-gray-700 text-sm font-bold">
                   <div className="mb-2">Logo</div>
                   <div>
@@ -72,9 +72,9 @@ export default function CreateWorkspace() {
               </div>
             </div>
 
-            <div className="mb-5 rounded-xl bg-white p-4 pt-6">
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-4">
+            <div className="mb-4 rounded-xl bg-white p-4 pt-6">
+              <div className="mb-3">
+                <div className="flex items-center justify-between">
                   <div>
                     <p className="block text-gray-700 text-sm font-bold">
                       Users
@@ -84,7 +84,7 @@ export default function CreateWorkspace() {
                 </div>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-3">
                 <ul>
                   <li className="rounded-xl bg-gray-100 shadow p-4 pt-6">
                     <div className="flex items-center justify-between">
@@ -106,7 +106,7 @@ export default function CreateWorkspace() {
                 </ul>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-3">
                 <label className="block text-gray-700 text-sm font-bold">
                   <div className="mb-2">Name</div>
                   <div>
@@ -120,7 +120,7 @@ export default function CreateWorkspace() {
                 </label>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-3">
                 <label className="block text-gray-700 text-sm font-bold">
                   <div className="mb-2">Email</div>
                   <div>
@@ -134,7 +134,7 @@ export default function CreateWorkspace() {
                 </label>
               </div>
 
-              <div className="mb-4 flex items-center gap-3">
+              <div className="mb-3 flex items-center gap-3">
                 <button className="rounded-full w-8 h-8 text-2xl border border-black">
                   <div className="flex justify-center items-center">
                     <div style={{ lineHeight: 1 }}>+</div>
@@ -148,7 +148,9 @@ export default function CreateWorkspace() {
 
             <div className="flex justify-end gap-3 md:gap-5 items-center">
               <div>
-                <button className="text-sm">Cancel</button>
+                <button className="text-sm" onClick={() => setOpen(false)}>
+                  Cancel
+                </button>
               </div>
               <div>
                 <button className="py-3 px-4 bg-emerald-900 text-white rounded-3xl">
