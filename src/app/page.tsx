@@ -1,10 +1,11 @@
 import WorkspaceForm from "@/components/WorkspaceForm";
 import fetchAPI from "@/helpers/fetchAPI";
-import { Workspace } from "@/interfaces";
+import { User, Workspace } from "@/interfaces";
 
 export default async function Home() {
   const { data: workspacesData } = await fetchAPI<Workspace[]>("workspaces");
-  
+  const { data: currentUserData } = await fetchAPI<User>("current-user");
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-emerald-900 text-white">
       <section className="p-5" style={{ maxWidth: 1000, width: "100%" }}>
@@ -18,12 +19,17 @@ export default async function Home() {
         </div>
 
         <div className="mb-12">
-          <h1 className="mb-2 text-4xl font-extrabold">Welcome Back!</h1>
+          <h1 className="mb-2 text-4xl font-extrabold">
+            Welcome Back {currentUserData?.name}!
+          </h1>
 
-          <p>choose your workspace to reach the box {process.env.NEXT_PUBLIC_APP_ENV}</p>
+          <p>choose your workspace to reach the box</p>
         </div>
 
-        <WorkspaceForm workspacesData={workspacesData || []} />
+        <WorkspaceForm
+          workspacesData={workspacesData || []}
+          currentUserData={currentUserData || []}
+        />
       </section>
     </main>
   );

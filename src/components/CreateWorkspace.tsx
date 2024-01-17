@@ -3,19 +3,17 @@ import { User } from "@/interfaces";
 import WorkspaceContext from "@/store/workspaceContext";
 import React from "react";
 
-export default function CreateWorkspace() {
+export default function CreateWorkspace({
+  currentUserData,
+}: {
+  currentUserData: User;
+}) {
   const [open, setOpen] = React.useState<boolean>(false);
   const [userFormData, setUserFormData] = React.useState<{
     name?: string;
     email?: string;
   }>({});
-  const [users, setUsers] = React.useState<User[]>([
-    {
-      id: 1,
-      name: "Jason Bull",
-      email: "bulljason@gmail.com",
-    },
-  ]);
+  const [users, setUsers] = React.useState<User[]>([currentUserData]);
   const [workspaceFormData, setWorkspaceFormData] = React.useState<{
     name?: string;
     logo?: string;

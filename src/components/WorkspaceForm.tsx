@@ -3,14 +3,17 @@
 import React from "react";
 import CreateWorkspace from "./CreateWorkspace";
 import WorkspaceContext from "@/store/workspaceContext";
-import { Workspace } from "@/interfaces";
+import { User, Workspace } from "@/interfaces";
 
 export default function WorkspaceForm({
   workspacesData,
+  currentUserData,
 }: {
   workspacesData: Workspace[];
+  currentUserData: User;
 }) {
-  const [workspaces, setWorkspaces] = React.useState<Workspace[]>(workspacesData);
+  const [workspaces, setWorkspaces] =
+    React.useState<Workspace[]>(workspacesData);
 
   return (
     <WorkspaceContext.Provider
@@ -22,7 +25,7 @@ export default function WorkspaceForm({
       <div>
         <div className="rounded-t-xl bg-white shadow mb-4">
           <div className="rounded-t-xl bg-gray-100 text-emerald-900 p-4">
-            <p>Work for abckumar@spbox.com</p>
+            {currentUserData && <p>Work for {currentUserData.email}</p>}
           </div>
 
           {workspaces?.map((item, index) => (
@@ -51,7 +54,7 @@ export default function WorkspaceForm({
           ))}
         </div>
 
-        <CreateWorkspace />
+        <CreateWorkspace currentUserData={currentUserData} />
       </div>
     </WorkspaceContext.Provider>
   );
