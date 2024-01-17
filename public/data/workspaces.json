@@ -1,0 +1,13 @@
+[
+  {
+    "logo": "logo",
+    "name": "Workspace name",
+    "users": [
+      {
+        "id": 1,
+        "name": "Jason Bull",
+        "email": "bulljason@gmail.com"
+      }
+    ]
+  }
+]

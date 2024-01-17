@@ -1,8 +1,27 @@
 "use client";
+import { User } from "@/interfaces";
+import WorkspaceContext from "@/store/workspaceContext";
 import React from "react";
 
 export default function CreateWorkspace() {
   const [open, setOpen] = React.useState<boolean>(true);
+  const [userFormData, setUserFormData] = React.useState<{
+    name?: string;
+    email?: string;
+  }>({});
+  const [users, setUsers] = React.useState<User[]>([
+    {
+      id: 1,
+      name: "Jason Bull",
+      email: "bulljason@gmail.com",
+    },
+  ]);
+  const [workspaceFormData, setWorkspaceFormData] = React.useState<{
+    name?: string;
+    logo?: string;
+  }>({});
+  const { workspacesSetter } = React.useContext(WorkspaceContext);
+
   return (
     <div>
       <div className="text-end">
@@ -52,6 +71,13 @@ export default function CreateWorkspace() {
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       type="text"
                       placeholder="Enter workspace name"
+                      value={workspaceFormData.name || ""}
+                      onChange={(event) =>
+                        setWorkspaceFormData((pre) => ({
+                          ...pre,
+                          name: event?.target?.value,
+                        }))
+                      }
                     />
                   </div>
                 </label>
@@ -66,6 +92,13 @@ export default function CreateWorkspace() {
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       type="file"
                       placeholder="Enter workspace name"
+                      value={workspaceFormData.logo || ""}
+                      onChange={(event) => {
+                        setWorkspaceFormData((pre) => ({
+                          ...pre,
+                          logo: event?.target?.value,
+                        }));
+                      }}
                     />
                   </div>
                 </label>
@@ -80,70 +113,131 @@ export default function CreateWorkspace() {
                       Users
                     </p>
                   </div>
-                  <div>1/4</div>
+                  <div>{users?.length}/4</div>
                 </div>
               </div>
 
               <div className="mb-3">
                 <ul>
-                  <li className="rounded-xl bg-gray-100 shadow p-4 pt-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="block text-gray-700 text-sm font-bold">
-                          Jason Bull
-                        </p>
-                        <p className="block text-gray-700 text-sm ">
-                          bulljason@gmail.com
-                        </p>
+                  {users?.map((item) => (
+                    <li
+                      className="rounded-xl bg-gray-100 shadow p-4 pt-6 mb-2"
+                      key={item.id}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="block text-gray-700 text-sm font-bold">
+                            {item?.name}
+                          </p>
+                          <p className="block text-gray-700 text-sm ">
+                            {item.email}
+                          </p>
+                        </div>
+                        <div>
+                          <button
+                            onClick={() =>
+                              setUsers((pre) =>
+                                pre?.filter(
+                                  (filterItem) => !(filterItem?.id === item?.id)
+                                )
+                              )
+                            }
+                            className="text-decoration-underline"
+                          >
+                            Remove
+                          </button>
+                        </div>
                       </div>
-                      <div>
-                        <button className=" text-decoration-underline">
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  </li>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
-              <div className="mb-3">
-                <label className="block text-gray-700 text-sm font-bold">
-                  <div className="mb-2">Name</div>
-                  <div>
-                    <input
-                      name="name"
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      type="text"
-                      placeholder="Enter user name"
-                    />
+              {users?.length < 4 && (
+                <>
+                  <div className="mb-3">
+                    <label className="block text-gray-700 text-sm font-bold">
+                      <div className="mb-2">Name</div>
+                      <div>
+                        <input
+                          name="name"
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          type="text"
+                          placeholder="Enter user name"
+                          value={userFormData.name || ""}
+                          onChange={(event) =>
+                            setUserFormData((pre) => ({
+                              ...pre,
+                              name: event?.target?.value,
+                            }))
+                          }
+                        />
+                      </div>
+                    </label>
                   </div>
-                </label>
-              </div>
 
-              <div className="mb-3">
-                <label className="block text-gray-700 text-sm font-bold">
-                  <div className="mb-2">Email</div>
-                  <div>
-                    <input
-                      name="email"
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      type="email"
-                      placeholder="Enter user Email"
-                    />
+                  <div className="mb-3">
+                    <label className="block text-gray-700 text-sm font-bold">
+                      <div className="mb-2">Email</div>
+                      <div>
+                        <input
+                          name="email"
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          type="email"
+                          placeholder="Enter user Email"
+                          value={userFormData.email || ""}
+                          onChange={(event) =>
+                            setUserFormData((pre) => ({
+                              ...pre,
+                              email: event?.target?.value,
+                            }))
+                          }
+                        />
+                      </div>
+                    </label>
                   </div>
-                </label>
-              </div>
 
-              <div className="mb-3 flex items-center gap-3">
-                <button className="rounded-full w-8 h-8 text-2xl border border-black">
-                  <div className="flex justify-center items-center">
-                    <div style={{ lineHeight: 1 }}>+</div>
+                  <div className="mb-3 flex items-center gap-3">
+                    <button
+                      onClick={() => {
+                        if (userFormData?.name && userFormData?.email) {
+                          setUsers((pre) => [
+                            ...pre,
+                            {
+                              id: pre[pre?.length - 1]
+                                ? pre[pre?.length - 1].id + 1
+                                : 1,
+                              name: userFormData?.name || "",
+                              email: userFormData?.email || "",
+                            },
+                          ]);
+
+                          setUserFormData({});
+                        }
+                      }}
+                      className={`rounded-full w-8 h-8 text-2xl border border-black ${
+                        !userFormData?.name ||
+                        !userFormData?.email ||
+                        users?.length >= 4
+                          ? "border-gray-400 text-gray-400"
+                          : ""
+                      }`}
+                      disabled={
+                        !userFormData?.name ||
+                        !userFormData?.email ||
+                        users?.length >= 4
+                      }
+                    >
+                      <div className="flex justify-center items-center">
+                        <div style={{ lineHeight: 1 }}>+</div>
+                      </div>
+                    </button>
+                    <p className="block text-gray-700 text-sm font-bold">
+                      Add another user
+                    </p>
                   </div>
-                </button>
-                <p className="block text-gray-700 text-sm font-bold">
-                  Add another user
-                </p>
-              </div>
+                </>
+              )}
             </div>
 
             <div className="flex justify-end gap-3 md:gap-5 items-center">
@@ -153,7 +247,19 @@ export default function CreateWorkspace() {
                 </button>
               </div>
               <div>
-                <button className="py-3 px-4 bg-emerald-900 text-white rounded-3xl">
+                <button
+                  className="py-3 px-4 bg-emerald-900 text-white rounded-3xl"
+                  onClick={() => {
+                    if (workspacesSetter)
+                      workspacesSetter((pre) => [
+                        ...pre,
+                        {
+                          ...workspaceFormData,
+                          users: users,
+                        },
+                      ]);
+                  }}
+                >
                   Submit Workspace
                 </button>
               </div>
