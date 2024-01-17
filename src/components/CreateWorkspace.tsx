@@ -4,7 +4,7 @@ import WorkspaceContext from "@/store/workspaceContext";
 import React from "react";
 
 export default function CreateWorkspace() {
-  const [open, setOpen] = React.useState<boolean>(true);
+  const [open, setOpen] = React.useState<boolean>(false);
   const [userFormData, setUserFormData] = React.useState<{
     name?: string;
     email?: string;
