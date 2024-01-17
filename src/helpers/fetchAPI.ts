@@ -1,6 +1,8 @@
+import absoluteUrl from "./absoluteUrl"
+
 export default async function fetchAPI<Type>(url: string) {
     try {
-        const response = await fetch(`/api/${url}`)
+        const response = await fetch(absoluteUrl(`/api/${url}`))
         const data = await response.json()
         return { status: 200, data } as { status: number, data: Type }
     } catch (error: any) {

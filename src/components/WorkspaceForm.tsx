@@ -4,7 +4,6 @@ import React from "react";
 import CreateWorkspace from "./CreateWorkspace";
 import WorkspaceContext from "@/store/workspaceContext";
 import { Workspace } from "@/interfaces";
-import fetchAPI from "@/helpers/fetchAPI";
 
 export default function WorkspaceForm({
   workspacesData,
@@ -12,12 +11,6 @@ export default function WorkspaceForm({
   workspacesData: Workspace[];
 }) {
   const [workspaces, setWorkspaces] = React.useState<Workspace[]>(workspacesData);
-
-  // React.useEffect(() => {
-  //   fetchAPI<Workspace[]>("workspaces").then((item) =>
-  //     console.log("item", item)
-  //   );
-  // }, []);
 
   return (
     <WorkspaceContext.Provider

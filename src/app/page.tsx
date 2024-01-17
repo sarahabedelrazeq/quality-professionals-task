@@ -20,7 +20,7 @@ export default async function Home() {
         <div className="mb-12">
           <h1 className="mb-2 text-4xl font-extrabold">Welcome Back!</h1>
 
-          <p>choose your workspace to reach the box</p>
+          <p>choose your workspace to reach the box {process.env.NEXT_PUBLIC_APP_ENV}</p>
         </div>
 
         <WorkspaceForm workspacesData={workspacesData || []} />
