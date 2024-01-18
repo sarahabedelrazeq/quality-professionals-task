@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.swal2-confirm.swal2-styled {
+  background-color: #e26464;
+  box-shadow: none !important;
+}

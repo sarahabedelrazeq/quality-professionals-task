@@ -1,7 +1,12 @@
 "use client";
+import fetchAPI from "@/helpers/fetchAPI";
 import { User } from "@/interfaces";
 import WorkspaceContext from "@/store/workspaceContext";
 import React from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 export default function CreateWorkspace({
   currentUserData,
@@ -248,14 +253,30 @@ export default function CreateWorkspace({
                 <button
                   className="py-3 px-4 bg-emerald-900 text-white rounded-3xl"
                   onClick={() => {
-                    if (workspacesSetter)
-                      workspacesSetter((pre) => [
-                        ...pre,
-                        {
-                          ...workspaceFormData,
-                          users: users,
-                        },
-                      ]);
+                    fetchAPI(
+                      "workspaces",
+                      JSON.stringify({
+                        ...workspaceFormData,
+                        users: users,
+                      }),
+                      "POST"
+                    ).then((response) => {
+                      if (response?.status === 200 && workspacesSetter) {
+                        workspacesSetter((pre) => [
+                          ...pre,
+                          {
+                            ...workspaceFormData,
+                            users: users,
+                          },
+                        ]);
+                        setOpen(false);
+                      } else if (response?.message) {
+                        MySwal.fire({
+                          icon: "error",
+                          title: response?.message,
+                        });
+                      }
+                    });
                   }}
                 >
                   Submit Workspace
