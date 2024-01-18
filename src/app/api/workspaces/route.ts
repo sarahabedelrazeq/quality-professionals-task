@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 
 export const GET = async () => {
     try {
-        const file = await fs.readFile(process.cwd() + '/public/data/workspaces.json', 'utf8');
+        // const file = await fs.readFile(process.cwd() + '/public/data/workspaces.json', 'utf8');
 
         return new Response(process.cwd())
     } catch (error: any) {
