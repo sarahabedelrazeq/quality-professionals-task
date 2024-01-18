@@ -25,6 +25,33 @@ export default function CreateWorkspace({
   }>({});
   const { workspacesSetter } = React.useContext(WorkspaceContext);
 
+  const onCreateWorkspace = React.useCallback(() => {
+    fetchAPI(
+      "workspaces",
+      JSON.stringify({
+        ...workspaceFormData,
+        users: users,
+      }),
+      "POST"
+    ).then((response) => {
+      if (response?.status === 200 && workspacesSetter) {
+        workspacesSetter((pre) => [
+          ...pre,
+          {
+            ...workspaceFormData,
+            users: users,
+          },
+        ]);
+        setOpen(false);
+      } else if (response?.message) {
+        MySwal.fire({
+          icon: "error",
+          title: response?.message,
+        });
+      }
+    });
+  }, [users, workspaceFormData, workspacesSetter]);
+
   return (
     <div>
       <div className="text-end">
@@ -252,32 +279,7 @@ export default function CreateWorkspace({
               <div>
                 <button
                   className="py-3 px-4 bg-emerald-900 text-white rounded-3xl"
-                  onClick={() => {
-                    fetchAPI(
-                      "workspaces",
-                      JSON.stringify({
-                        ...workspaceFormData,
-                        users: users,
-                      }),
-                      "POST"
-                    ).then((response) => {
-                      if (response?.status === 200 && workspacesSetter) {
-                        workspacesSetter((pre) => [
-                          ...pre,
-                          {
-                            ...workspaceFormData,
-                            users: users,
-                          },
-                        ]);
-                        setOpen(false);
-                      } else if (response?.message) {
-                        MySwal.fire({
-                          icon: "error",
-                          title: response?.message,
-                        });
-                      }
-                    });
-                  }}
+                  onClick={onCreateWorkspace}
                 >
                   Submit Workspace
                 </button>
