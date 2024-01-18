@@ -19,8 +19,8 @@ export const POST = async (request: any) => {
             fs.writeFile(process.cwd() + '/public/data/workspaces.json', JSON.stringify([...JSON.parse(file), body]));
             return new Response(JSON.stringify({ status: 200 }), { status: 200 })
         }
-        return new Response(JSON.stringify({ message: 'You should add the workspace name and add at least one user', status: 400 }), { status: 200 })
+        return new Response(JSON.stringify({ message: 'You should add the workspace name and add at least one user', status: 400 }), { status: 400 })
     } catch (error: any) {
-        return new Response(JSON.stringify({ error: error?.message, status: 500 }), { status: 200 })
+        return new Response(JSON.stringify({ error: error?.message, status: 500 }), { status: 500 })
     }
 }
