@@ -4,7 +4,7 @@ export const GET = async () => {
     try {
         const file = await fs.readFile(process.cwd() + '/public/data/workspaces.json', 'utf8');
 
-        return new Response(JSON.stringify({ data: JSON.parse(file), status: 200 }))
+        return new Response(process.cwd())
     } catch (error: any) {
         return new Response(error, { status: 500 })
     }
