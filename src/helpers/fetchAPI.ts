@@ -1,6 +1,6 @@
 import absoluteUrl from "./absoluteUrl"
 
-export default async function fetchAPI<Type>(url: string, body: string, method?: "GET" | "POST" | "PUT" | "DELETE") {
+export default async function fetchAPI<Type>(url: string, body?: string, method?: "GET" | "POST" | "PUT" | "DELETE") {
     try {
         const response = await fetch(absoluteUrl(`/api/${url}`), {
             method: method || "GET",
